@@ -104,3 +104,47 @@ int main()
     printf("\n");
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+................................................
+  sum_tat += ps[i].tat;
+  sum_wt += ps[i].wt;
+  sum_rt += ps[i].rt;
+  total_idle_time += (i==0) ? 0 : (ps[i].start_time -  ps[i-1].ct);
+}
+
+length_cycle = ps[n-1].ct - ps[0].start_time; 
+
+//sort so that process ID in output comes in Original order (just for interactivity)
+qsort((void *)ps,n, sizeof(struct process_struct),comparatorPID);
+
+//Output
+printf("\nProcess No.\tAT\tCPU Burst Time\tCT\tTAT\tWT\tRT\n");
+for(int i=0;i<n;i++)
+ printf("%d\t\t%d\t%d\t\t%d\t%d\t%d\t%d\n",ps[i].pid,ps[i].at,ps[i].bt,ps[i].ct,ps[i].tat,ps[i].wt,ps[i].rt);
+
+printf("\n");    
+
+cpu_utilization = (float)(length_cycle - total_idle_time)/ length_cycle;
+
+printf("\nAverage Turn Around time= %f ",sum_tat/n);
+printf("\nAverage Waiting Time= %f ",sum_wt/n);
+printf("\nAverage Response Time= %f ",sum_rt/n);
+printf("\nThroughput= %f",n/(float)length_cycle);    
+printf("\nCPU Utilization(Percentage)= %f",cpu_utilization*100);
+
+printf("\n");
+return 0;
